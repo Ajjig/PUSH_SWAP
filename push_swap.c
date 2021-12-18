@@ -7,14 +7,14 @@ bool	is_sorted(int *arr, int ac)
 	i = 1;
 	while (--ac)
 	{
-		if (arr[i] < arr[i - 1] && arr[i - 1] != 0)
+		if (arr[i] < arr[i - 1])
 			return(false);
 		i++;
 	}
 	return(true);
 }
 
-int	get_max(int *arr, int ac)
+int	get_min(int *arr, int ac)
 {
 	int	tmp;
 	int	i;
@@ -23,7 +23,7 @@ int	get_max(int *arr, int ac)
 	tmp = *arr;
 	while (ac--)
 	{
-		if (tmp < arr[i])
+		if (tmp > arr[i])
 			tmp = arr[i];
 		i++;
 	}
@@ -32,17 +32,25 @@ int	get_max(int *arr, int ac)
 
 void	push_to_b(int *a, int *b, int ac)
 {
-	int	max;
+	int	min;
 	int i = 0;
 	int bc = 0;
 
-	while (!is_sorted(a, ac))
+	while (!is_sorted(a + i, ac))
 	{
-		max = get_max(a + i, ac);
-		while (a[i] != max)
+		min = get_min(a + i, ac);
+		while (a[i] != min)
 		{
-			rotate(a + i, ac);
-			write(1, "ra\n", 3);
+			if (a[0] > a[1])
+			{
+				write(1, "sa\n", 3);
+				swap(a, ac);
+			}
+			else
+			{
+				rotate(a + i, ac);
+				write(1, "ra\n", 3);
+			}
 		}
 		b[bc++] = a[i];
 		write(1, "pb\n", 3);
@@ -69,8 +77,6 @@ int	main(int ac, char **av)
 	i = 0;
 	//rotate(a, ac);
 	push_to_b(a, b, ac);
-	//while (i < ac)
-	//	printf("%d ", a[i++]);
 	free(a);
 	free(b);
 }

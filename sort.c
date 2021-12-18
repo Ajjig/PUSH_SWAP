@@ -4,9 +4,9 @@ void	swap(int *arr, int ac)
 {
 	int tmp;
 
-	tmp = arr[ac - 1];
-	arr[ac - 1] = arr[ac - 2];
-	arr[ac - 2] = tmp;
+	tmp = arr[0];
+	arr[0] = arr[1];
+	arr[1] = tmp;
 }
 
 void	rotate(int *arr, int ac)
