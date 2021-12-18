@@ -8,6 +8,7 @@
 
 void	swap(int *arr, int ac);
 void	rotate(int *arr, int ac);
+void	reverse_rotate(int *arr, int ac);
 
 typedef struct s_a
 {

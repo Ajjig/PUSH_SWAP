@@ -22,3 +22,17 @@ void	rotate(int *arr, int ac)
 	}
 	arr[i - 1] = tmp;
 }
+
+void	reverse_rotate(int *arr, int ac)
+{
+	int	i;
+	int	tmp;
+
+	tmp = arr[ac - 1];
+	i = ac;
+	while (--i)
+	{
+		arr[i] = arr[i - 1];
+	}
+	arr[i] = tmp;
+}

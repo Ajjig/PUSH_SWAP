@@ -1,5 +1,24 @@
 #include "push_swap.h"
 
+void	better_rotate(int *arr, int ac, int target)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i] != target)
+		i++;
+	if (i < ac / 2)
+	{
+		rotate(arr, ac);
+		write(1, "ra\n", 3);
+	}
+	else
+	{
+		write(1, "rra\n", 4);
+		reverse_rotate(arr, ac);
+	}
+}
+
 bool	is_sorted(int *arr, int ac)
 {
 	int	i;
@@ -46,12 +65,14 @@ void	push_to_b(int *a, int *b, int ac)
 				write(1, "sa\n", 3);
 				swap(a, ac);
 			}
-			else
+			else if (a[i] != min)
 			{
-				rotate(a + i, ac);
-				write(1, "ra\n", 3);
+				better_rotate(a + i, ac, min);
+				//write(1, "ra\n", 3);
 			}
 		}
+		if (is_sorted(a + i, ac))
+			break;
 		b[bc++] = a[i];
 		write(1, "pb\n", 3);
 		ac--;
@@ -77,6 +98,8 @@ int	main(int ac, char **av)
 	i = 0;
 	//rotate(a, ac);
 	push_to_b(a, b, ac);
+	//while (i < ac)
+	//	printf("%d ", a[i++]);
 	free(a);
 	free(b);
 }
