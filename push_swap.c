@@ -49,34 +49,55 @@ int	get_min(int *arr, int ac)
 	return (tmp);
 }
 
+int	get_next_min(int *arr, int ac)
+{
+	int	tmp;
+	int	i;
+	int	min;
+
+	min = get_min(arr, ac);
+	i = 0;
+	tmp = *arr;
+	if (tmp == min)
+		tmp = arr[1];
+	while (ac--)
+	{
+		if (tmp > arr[i] && arr[i] != min)
+			tmp = arr[i];
+		i++;
+	}
+	return (tmp);
+}
+
 void	push_to_b(int *a, int *b, int ac)
 {
 	int	min;
 	int i = 0;
 	int bc = 0;
+	int next_min;
 
 	while (!is_sorted(a + i, ac))
 	{
 		min = get_min(a + i, ac);
+		next_min = get_next_min(a + i, ac);
 		while (a[i] != min)
 		{
-			if (a[0] > a[1])
+			better_rotate(a + i, ac, min);
+			if (a[i] == next_min)
 			{
-				write(1, "sa\n", 3);
-				swap(a, ac);
-			}
-			else if (a[i] != min)
-			{
-				better_rotate(a + i, ac, min);
-				//write(1, "ra\n", 3);
+				b[bc++] = a[i++];
+				ac--;
+				write(1, "pb\n", 3);
 			}
 		}
-		if (is_sorted(a + i, ac))
-			break;
-		b[bc++] = a[i];
+		b[bc++] = a[i++];
 		write(1, "pb\n", 3);
+		if (bc > 1 && b[bc - 2] > b[bc - 1])
+		{
+			swap(b, bc - 2);
+			write(1, "sb\n", 3);
+		}
 		ac--;
-		i++;
 	}
 	while (i > 0)
 	{
