@@ -9,17 +9,10 @@
 void	swap(int *arr, int ac);
 void	rotate(int *arr, int ac);
 void	reverse_rotate(int *arr, int ac);
+int		get_min(int *arr, int ac);
+bool	is_sorted(int *arr, int ac);
+void	better_rotate(int *arr, int ac, int target);
+int		get_next_min(int *arr, int ac);
 
-typedef struct s_a
-{
-	int			nb;
-	struct s_a	*next;
-}				t_a;
-
-typedef struct s_b
-{
-	int			nb;
-	struct s_b	*next;
-}				t_b;
 
 #endif
