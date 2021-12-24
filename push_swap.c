@@ -1,20 +1,23 @@
 #include "push_swap.h"
 
-void	better_rotate(int *arr, int ac, int target)
+void	better_rotate(int *arr, int ac, int min, int max, int next)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (arr[i] != target)
+	j = ac;
+	while (arr[i] != min && arr[i] != max && arr[i] != next)
 		i++;
+	while (arr[j] != min && arr[j] != max && arr[j] != next)
+		j--;
 	if (i == 0)
 		return ;
-	if (i < ac / 2 + 1)
+	if (i < (ac - j))
 	{
 		write(1, "ra\n", 3);
 		rotate(arr, ac);
 	}
-
 	else
 	{
 		write(1, "rra\n", 4);
@@ -27,7 +30,7 @@ bool	is_sorted(int *arr, int ac)
 	int	i;
 
 	i = 1;
-	while (--ac)
+	while (ac--)
 	{
 		if (arr[i] < arr[i - 1])
 			return(false);
@@ -89,32 +92,39 @@ int	get_next_min(int *arr, int ac)
 
 void	push_to_b(int *a, int *b, int ac)
 {
-	int			min;
 	static int	i = 0;
 	static int	bc = 0;
-	int			next_min;
-	int			max;
 	int			x = 0;
+	t_target	target;
 	while (ac)
 	{
-		min = get_min(a + i, ac);
-		next_min = get_next_min(a + i, ac);
-		max = get_max(a + i, ac);
-		better_rotate(a + i, ac, min);
-		if ((a[i] == min || a[i] == next_min))
+		target.min = get_min(a + i, ac);
+		target.next = get_next_min(a + i, ac);
+		target.max = get_max(a + i, ac);
+		better_rotate(a + i, ac, target.min, target.max, target.next);
+
+		if ((a[i] == target.min || a[i] == target.next))
 		{
 			b[bc++] = a[i++];
 			ac--;
 			write(1, "pb\n", 3);
-			if (a[i - 1] == min)
+			if (a[i - 1] == target.min)
 				continue ;
-			while (a[i] != min)
-				better_rotate(a + i, ac, min);
+			while (a[i] != target.min)
+			{
+				if (a[i] == target.max)
+				{
+					b[bc++] = a[i++];
+					ac--;x++;
+					write(1, "pb\nrb\n", 6);
+				}
+				better_rotate(a + i, ac, target.min, target.min, target.min);
+			}
 			b[bc++] = a[i++];
 			write(1, "pb\nsb\n", 6);
 			ac--;
 		}
-		else if (a[i] == max)
+		else if (a[i] == target.max)
 		{
 			b[bc++] = a[i++];
 			ac--;x++;
