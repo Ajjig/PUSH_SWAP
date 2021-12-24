@@ -118,7 +118,7 @@ void	push_to_b(int *a, int *b, int ac)
 					ac--;x++;
 					write(1, "pb\nrb\n", 6);
 				}
-				better_rotate(a + i, ac, target.min, target.min, target.min);
+				better_rotate(a + i, ac, target.min, target.max, target.min);
 			}
 			b[bc++] = a[i++];
 			write(1, "pb\nsb\n", 6);
