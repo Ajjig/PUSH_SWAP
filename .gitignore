@@ -2,3 +2,5 @@ a.out
 *.o
 .DS_Store
 exe
+test
+tester

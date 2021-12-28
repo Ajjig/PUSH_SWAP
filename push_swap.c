@@ -1,19 +1,15 @@
 #include "push_swap.h"
 
-void	better_rotate(int *arr, int ac, int max, int next)
+void	better_rotate(int *arr, int ac, int max)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = ac;
-	while (arr[i] != max && arr[i] != next)
+	while (arr[i] != max)
 		i++;
-	while (arr[j] != max && arr[j] != next)
-		j--;
 	if (i == 0)
 		return ;
-	if (i < (ac - j))
+	if (i < (ac / 2) + 1)
 	{
 		write(1, "rb\n", 3);
 		rotate(arr, ac);
@@ -111,37 +107,26 @@ void	push_to_a(int *a, int bc)
 {
 	static int	i = 0;
 	t_target	target;
-	int	is_next = 0;
+	static int	is_next = 0;
 
 	while (bc > 0)
 	{
 		target.next = get_next_max(a + i, bc);
 		target.max = get_max(a + i, bc);
-		better_rotate(a + i, bc, target.max, target.max);
-		while (a[i] != target.max)
+		better_rotate(a + i, bc, target.max);
+		if (a[i] == target.max || (a[i] == target.next && is_next == 0))
 		{
-			better_rotate(a + i, bc, target.max, target.next);
-			if (a[i] == target.next)
-			{
-				write(1, "pa\n", 3);
-				i++;
-				bc--;
+			write(1, "pa\n", 3);
+			if (a[i] == target.next && is_next == 0)
 				is_next = 1;
+			else if (is_next && a[i] == target.max)
+			{
+				write(1, "sa\n", 3);
+				is_next = 0;
 			}
+			i++;
+			bc--;
 		}
-		write(1, "pa\n", 3);
-		if (is_next && a[i] < a[i + 1])
-		{
-			write(1, "ss\n", 3);
-			is_next = 0;
-		}
-		if (is_next)
-		{
-			write(1, "sa\n", 3);
-			is_next = 0;
-		}
-		i++;
-		bc--;
 	}
 }
 
