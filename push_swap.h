@@ -15,7 +15,6 @@ int		get_next_min(int *arr, int ac);
 
 typedef struct s_target
 {
-	int min;
 	int max;
 	int next;
 }	t_target;

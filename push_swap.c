@@ -1,26 +1,26 @@
 #include "push_swap.h"
 
-void	better_rotate(int *arr, int ac, int min, int max, int next)
+void	better_rotate(int *arr, int ac, int max, int next)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = ac;
-	while (arr[i] != min && arr[i] != max && arr[i] != next)
+	while (arr[i] != max && arr[i] != next)
 		i++;
-	while (arr[j] != min && arr[j] != max && arr[j] != next)
+	while (arr[j] != max && arr[j] != next)
 		j--;
 	if (i == 0)
 		return ;
 	if (i < (ac - j))
 	{
-		write(1, "ra\n", 3);
+		write(1, "rb\n", 3);
 		rotate(arr, ac);
 	}
 	else
 	{
-		write(1, "rra\n", 4);
+		write(1, "rrb\n", 4);
 		reverse_rotate(arr, ac);
 	}
 }
@@ -39,21 +39,38 @@ bool	is_sorted(int *arr, int ac)
 	return(true);
 }
 
-int	get_min(int *arr, int ac)
+int	calc(int *a, int pivot, int ac)
 {
-	int	tmp;
+	int	i;
+	int	less;
+
+	less = 0;
+	i = 0;
+	while (i < ac)
+	{
+		if (a[i] < pivot)
+			less++;
+		i++;
+	}
+	if (less == ac / 3)
+		return (1);
+	return (0);
+}
+
+int get_pivot(int *a, int ac)
+{
 	int	i;
 
 	i = 0;
-	tmp = *arr;
-	while (ac--)
+	while (i < ac)
 	{
-		if (tmp > arr[i])
-			tmp = arr[i];
+		if (calc(a, a[i], ac))
+			return (a[i]);
 		i++;
 	}
-	return (tmp);
+	return(0);
 }
+
 int	get_max(int *arr, int ac)
 {
 	int	tmp;
@@ -70,71 +87,91 @@ int	get_max(int *arr, int ac)
 	return (tmp);
 }
 
-int	get_next_min(int *arr, int ac)
+int	get_next_max(int *arr, int ac)
 {
 	int	tmp;
 	int	i;
-	int	min;
+	int	max;
 
-	min = get_min(arr, ac);
+	max = get_max(arr, ac);
 	i = 0;
 	tmp = *arr;
-	if (tmp == min)
+	if (tmp == max)
 		tmp = arr[1];
 	while (ac--)
 	{
-		if (tmp > arr[i] && arr[i] != min)
+		if (tmp < arr[i] && arr[i] != max)
 			tmp = arr[i];
 		i++;
 	}
 	return (tmp);
 }
 
-void	push_to_b(int *a, int *b, int ac)
+void	push_to_a(int *a, int bc)
 {
 	static int	i = 0;
-	static int	bc = 0;
-	int			x = 0;
 	t_target	target;
-	while (ac)
-	{
-		target.min = get_min(a + i, ac);
-		target.next = get_next_min(a + i, ac);
-		target.max = get_max(a + i, ac);
-		better_rotate(a + i, ac, target.min, target.max, target.next);
+	int	is_next = 0;
 
-		if ((a[i] == target.min || a[i] == target.next))
+	while (bc > 0)
+	{
+		target.next = get_next_max(a + i, bc);
+		target.max = get_max(a + i, bc);
+		better_rotate(a + i, bc, target.max, target.max);
+		while (a[i] != target.max)
 		{
-			b[bc++] = a[i++];
-			ac--;
-			write(1, "pb\n", 3);
-			if (a[i - 1] == target.min)
-				continue ;
-			while (a[i] != target.min)
+			better_rotate(a + i, bc, target.max, target.next);
+			if (a[i] == target.next)
 			{
-				if (a[i] == target.max)
-				{
-					b[bc++] = a[i++];
-					ac--;x++;
-					write(1, "pb\nrb\n", 6);
-				}
-				better_rotate(a + i, ac, target.min, target.max, target.min);
+				write(1, "pa\n", 3);
+				i++;
+				bc--;
+				is_next = 1;
 			}
-			b[bc++] = a[i++];
-			write(1, "pb\nsb\n", 6);
-			ac--;
 		}
-		else if (a[i] == target.max)
+		write(1, "pa\n", 3);
+		if (is_next && a[i] < a[i + 1])
 		{
-			b[bc++] = a[i++];
-			ac--;x++;
-			write(1, "pb\nrb\n", 6);
+			write(1, "ss\n", 3);
+			is_next = 0;
+		}
+		if (is_next)
+		{
+			write(1, "sa\n", 3);
+			is_next = 0;
+		}
+		i++;
+		bc--;
+	}
+}
+
+void	push_to_b(int *a, int *b, int ac)
+{
+	int	i;
+	int	pivot;
+	int	tmp;
+	int	bc = ac;
+
+	i = 0;
+	while (bc > 2)
+	{
+		tmp = bc;
+		pivot = get_pivot(a + i, bc);
+		while (tmp-- > 0 && ac > 2)
+		{
+			if (a[i] < pivot)
+			{
+				write(1, "pb\n", 3);
+				b[--bc] = a[i++];
+				continue ;
+			}
+			rotate(a + i, bc);
+			write(1, "ra\n", 3);
 		}
 	}
-	while(x--)
-		write(1, "rrb\n", 4);
-	while (i-- > 0)
-		write(1, "pa\n", 3);
+	if (a[i] > a[i + 1])
+		write(1, "sa\n", 3);
+	push_to_a(b + bc, ac - bc);
 }
 
 int	main(int ac, char **av)
@@ -149,7 +186,6 @@ int	main(int ac, char **av)
 	b = (int *) malloc((ac) * sizeof(int));
 	while (++i <= ac)
 		a[i - 1] = atoi(av[i]);
-
 	push_to_b(a, b, ac);
 	i = 0;
 	//while (i <= bc)
