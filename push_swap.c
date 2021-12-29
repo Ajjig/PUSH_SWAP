@@ -67,6 +67,22 @@ int get_pivot(int *a, int ac)
 	return(0);
 }
 
+int	get_min(int *arr, int ac)
+{
+	int	tmp;
+	int	i;
+
+	i = 0;
+	tmp = *arr;
+	while (ac--)
+	{
+		if (tmp > arr[i])
+			tmp = arr[i];
+		i++;
+	}
+	return (tmp);
+}
+
 int	get_max(int *arr, int ac)
 {
 	int	tmp;
@@ -81,6 +97,20 @@ int	get_max(int *arr, int ac)
 		i++;
 	}
 	return (tmp);
+}
+
+int is_here(int *a, int ac, int pivot)
+{
+	int	i;
+
+	i = 0;
+	while (i < ac)
+	{
+		if (a[i] < pivot)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int	get_next_max(int *arr, int ac)
@@ -108,41 +138,41 @@ void	push_to_a(int *a, int bc)
 	static int	i = 0;
 	t_target	target;
 	static int	is_next = 0;
+	static int	x = 0;
 
 	while (bc > 0)
 	{
 		target.next = get_next_max(a + i, bc);
 		target.max = get_max(a + i, bc);
+		target.min = get_min(a + i, bc);
 		better_rotate(a + i, bc, target.max);
-		if (a[i] == target.max || (a[i] == target.next && is_next == 0))
+		if (a[i] == target.max || (a[i] == target.next && !is_next) || a[i] == target.min)
 		{
 			write(1, "pa\n", 3);
 			if (a[i] == target.next && is_next == 0)
 				is_next = 1;
 			else if (is_next && a[i] == target.max)
-			{
-				write(1, "sa\n", 3);
-				is_next = 0;
-			}
-			i++;
-			bc--;
+				write(is_next-- , "sa\n", 3);
+			else if (a[i] == target.min)
+				write((x++ * 0 + 1), "ra\n", 3);
+			i += (bc-- * 0) + 1;
 		}
 	}
+	while (x--)
+		write(1, "rra\n", 4);
 }
 
 void	push_to_b(int *a, int *b, int ac)
 {
 	int	i;
 	int	pivot;
-	int	tmp;
 	int	bc = ac;
 
 	i = 0;
-	while (bc > 2)
+	while (bc > 5)
 	{
-		tmp = bc;
 		pivot = get_pivot(a + i, bc);
-		while (tmp-- > 0 && ac > 2)
+		while (is_here(a + i, bc, pivot) && bc > 5)
 		{
 			if (a[i] < pivot)
 			{
@@ -154,8 +184,7 @@ void	push_to_b(int *a, int *b, int ac)
 			write(1, "ra\n", 3);
 		}
 	}
-	if (a[i] > a[i + 1])
-		write(1, "sa\n", 3);
+	sort5(a + i, bc);
 	push_to_a(b + bc, ac - bc);
 }
 
@@ -171,10 +200,10 @@ int	main(int ac, char **av)
 	b = (int *) malloc((ac) * sizeof(int));
 	while (++i <= ac)
 		a[i - 1] = atoi(av[i]);
-	push_to_b(a, b, ac);
-	i = 0;
-	//while (i <= bc)
-	//	printf("%d ", tmp_b[i++]);
+	if (ac <= 5)
+		sort5(a, ac);
+	else
+		push_to_b(a, b, ac);
 	free(a);
 	free(b);
 }
