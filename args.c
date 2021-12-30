@@ -17,21 +17,17 @@ int	ft_atoi(char *str)
 	nb = 0;
 	tmp = 0;
 	if (str[i] == '-')
-	{
-		sign = -1;
-		i++;
-	}
+		sign = ++i * - 1;
 	else if (str[i] == '+')
 		i++;
 	while (is_digit(str[i]))
 	{
+		if (nb == 214748364 && str[i] == '8' && sign == -1)
+			return (-2147483648);
 		nb = (str[i] - '0') + (nb * 10);
 		i++;
 		if (nb < tmp)
-		{
-			write(2, "ERROR\n", 6);
-			exit(1);
-		}
+			exit(write(2, "ERROR\n", 6));
 		tmp = nb;
 	}
 	return (nb * sign);
@@ -79,6 +75,11 @@ int	ft_count_nums(int ac, char **av)
 				i++;
 			if (is_digit(av[j][i]))
 				count++;
+			else if (!is_digit(av[j][i]))
+			{
+				write(2, "ERROR\n", 6);
+				exit(1);
+			}
 			while (is_digit(av[j][i]))
 				i++;
 			if (av[j][i] && av[j][i] != ' ' && av[j][i] != '\t')

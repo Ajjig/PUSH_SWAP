@@ -10,9 +10,7 @@
 			"request": "launch",
 			"program": "/Users/majjig/Desktop/PUSH_SWAP/push_swap",
 			"args": [
-				"13",
-				"1",
-				"-3 77"
+				"3 -77 -100",
 			],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
