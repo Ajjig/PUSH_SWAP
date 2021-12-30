@@ -21,18 +21,18 @@ void	better_rotate(int *arr, int ac, int max)
 	}
 }
 
-bool	is_sorted(int *arr, int ac)
+int	is_sorted(int *arr, int ac)
 {
 	int	i;
 
 	i = 1;
-	while (ac--)
+	while (--ac)
 	{
 		if (arr[i] < arr[i - 1])
-			return(false);
+			return(0);
 		i++;
 	}
-	return(true);
+	return(1);
 }
 
 int	calc(int *a, int pivot, int ac)
@@ -64,7 +64,7 @@ int get_pivot(int *a, int ac)
 			return (a[i]);
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 int	get_min(int *arr, int ac)
@@ -190,17 +190,23 @@ void	push_to_b(int *a, int *b, int ac)
 
 int	main(int ac, char **av)
 {
-	int *a;
-	int *b;
+	int	*a;
+	int	*b;
+	int	i;
 
-	int i = 0;
-	int bc;
-
-	a = (int *) malloc((--ac) * sizeof(int));
+	i = 0;
+	ac = ft_count_nums(ac, av);
+	a = (int *) malloc((ac) * sizeof(int));
 	b = (int *) malloc((ac) * sizeof(int));
-	while (++i <= ac)
-		a[i - 1] = atoi(av[i]);
-	if (ac <= 5)
+	ft_assign(ac, a, av);
+	if (is_sorted(a, ac))
+		ac--;
+	else if (ac < 3)
+	{
+		if (a[0] > a[1])
+			write(1, "sa\n", 3);
+	}
+	else if (ac <= 5)
 		sort5(a, ac);
 	else
 		push_to_b(a, b, ac);
