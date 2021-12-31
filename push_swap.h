@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: majjig <majjig@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/31 01:09:53 by majjig            #+#    #+#             */
+/*   Updated: 2021/12/31 01:10:29 by majjig           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -10,19 +22,23 @@ void	rotate(int *arr, int ac);
 void	reverse_rotate(int *arr, int ac);
 int		get_min(int *arr, int ac);
 int		is_sorted(int *arr, int ac);
-int		get_next_min(int *arr, int ac);
+int		get_next_max(int *arr, int ac);
 void	better_rotate(int *arr, int ac, int max);
 void	sort5(int *a, int ac);
 void	sort3(int *a);
 void	sort5_rotate(int *arr, int ac, int max);
 int		ft_count_nums(int ac, char **av);
 void	ft_assign(int ac, int *a, char **av);
+int		get_pivot(int *a, int ac);
+int		calc(int *a, int pivot, int ac);
+int		is_here(int *a, int ac, int pivot);
+int		get_max(int *arr, int ac);
 
 typedef struct s_target
 {
-	int max;
-	int next;
-	int min;
+	int	max;
+	int	next;
+	int	min;
 }	t_target;
 
 #endif

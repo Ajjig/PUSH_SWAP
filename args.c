@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   args.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: majjig <majjig@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/31 00:40:58 by majjig            #+#    #+#             */
+/*   Updated: 2021/12/31 01:00:16 by majjig           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	is_digit(char c)
@@ -17,7 +29,7 @@ int	ft_atoi(char *str)
 	nb = 0;
 	tmp = 0;
 	if (str[i] == '-')
-		sign = ++i * - 1;
+		sign = ++i * -1;
 	else if (str[i] == '+')
 		i++;
 	while (is_digit(str[i]))
@@ -41,11 +53,13 @@ void	ft_assign(int ac, int *a, char **av)
 
 	j = 0;
 	x = 0;
-	while(++j && x < ac)
+	while (++j && x < ac)
 	{
 		i = 0;
 		while (av[j][i])
 		{
+			while (av[j][i] == ' ' || av[j][i] == '+')
+				i++;
 			if (is_digit(av[j][i]) || av[j][i] == '-' || av[j][i] == '+')
 				a[x++] = ft_atoi(&av[j][i]);
 			if (av[j][i] == '-' || av[j][i] == '+')
@@ -60,13 +74,12 @@ void	ft_assign(int ac, int *a, char **av)
 
 int	ft_count_nums(int ac, char **av)
 {
-	int	i;
-	int	j;
-	int	count;
+	static int	i = 0;
+	static int	j = 0;
+	int			count;
 
 	count = 0;
-	j = 0;
-	while(++j < ac)
+	while (++j < ac)
 	{
 		i = 0;
 		while (av[j][i])
@@ -75,22 +88,15 @@ int	ft_count_nums(int ac, char **av)
 				i++;
 			if (is_digit(av[j][i]))
 				count++;
-			else if (!is_digit(av[j][i]))
-			{
-				write(2, "ERROR\n", 6);
-				exit(1);
-			}
+			else if (av[j][i] != ' ' && av[j][i] != '\t')
+				exit(write(2, "ERROR\n", 6));
 			while (is_digit(av[j][i]))
 				i++;
 			if (av[j][i] && av[j][i] != ' ' && av[j][i] != '\t')
-			{
-				write(2, "ERROR\n", 6);
-				exit(1);
-			}
+				exit(write(2, "ERROR\n", 6));
 			while (av[j][i] == ' ' || av[j][i] == '\t')
 				i++;
 		}
 	}
 	return (count);
 }
-
