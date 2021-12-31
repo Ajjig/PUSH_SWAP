@@ -6,7 +6,7 @@
 /*   By: majjig <majjig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 00:40:58 by majjig            #+#    #+#             */
-/*   Updated: 2021/12/31 01:00:16 by majjig           ###   ########.fr       */
+/*   Updated: 2021/12/31 01:16:28 by majjig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,28 @@
 int	is_digit(char c)
 {
 	return (c <= '9' && c >= '0');
+}
+
+void	ft_check_double(int *a, int ac)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	while (j < ac)
+	{
+		i = j + 1;
+		while (i < ac)
+		{
+			if (a[j] == a[i])
+			{
+				write(2, "ERROR\n", 6);
+				exit(1);
+			}
+			i++;
+		}
+		j++;
+	}
 }
 
 int	ft_atoi(char *str)
@@ -70,6 +92,7 @@ void	ft_assign(int ac, int *a, char **av)
 				i++;
 		}
 	}
+	ft_check_double(a, ac);
 }
 
 int	ft_count_nums(int ac, char **av)
