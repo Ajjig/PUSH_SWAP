@@ -6,11 +6,11 @@
 /*   By: majjig <majjig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 02:38:28 by majjig            #+#    #+#             */
-/*   Updated: 2021/11/16 18:05:16 by majjig           ###   ########.fr       */
+/*   Updated: 2022/01/03 21:00:36 by majjig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../push_swap.h"
 
 int	ft_strlen(char *str)
 {

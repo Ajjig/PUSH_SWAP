@@ -6,7 +6,7 @@
 /*   By: majjig <majjig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 01:09:53 by majjig            #+#    #+#             */
-/*   Updated: 2022/01/03 02:31:59 by majjig           ###   ########.fr       */
+/*   Updated: 2022/01/03 21:01:19 by majjig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <string.h>
+
+# define BUFFER_SIZE 1024
 
 void	swap(int *arr, int ac);
 void	rotate(int *arr, int ac);

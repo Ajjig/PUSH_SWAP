@@ -6,11 +6,11 @@
 /*   By: majjig <majjig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 02:38:11 by majjig            #+#    #+#             */
-/*   Updated: 2021/11/16 18:15:37 by majjig           ###   ########.fr       */
+/*   Updated: 2022/01/03 21:00:18 by majjig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../push_swap.h"
 
 char	*new_remain(char *line, char *remain)
 {
