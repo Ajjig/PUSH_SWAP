@@ -6,7 +6,7 @@
 /*   By: majjig <majjig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 00:46:17 by majjig            #+#    #+#             */
-/*   Updated: 2021/12/31 00:48:49 by majjig           ###   ########.fr       */
+/*   Updated: 2022/01/03 02:51:59 by majjig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,18 @@ int	get_next_max(int *arr, int ac)
 		i++;
 	}
 	return (tmp);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	return (1);
 }
