@@ -6,4 +6,4 @@ test
 tester
 push_swap.dSYM
 .vscode
-
+GET_NEXT_LINE/*.o
