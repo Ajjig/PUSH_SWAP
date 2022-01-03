@@ -29,8 +29,18 @@ SRC_O = ${SRC:.c=.o}
 
 CHKR_O = ${CHKR:.c=.o}
 
-all : $(NAME) $(CNAME)
+all : $(NAME) $(CNAME) $(INC)
 
 $(NAME): $(SRC_O)
 
 $(CNAME): $(CHKR_O)
+
+clean:
+	-@rm -rf $(CHKR_O) $(SRC_O)
+
+fclean: clean
+	-@rm -rf $(CNAME) $(NAME)
+
+re: clean all
+
+.PHONY = clean fclean all re
