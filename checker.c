@@ -6,7 +6,7 @@
 /*   By: majjig <majjig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:09:35 by majjig            #+#    #+#             */
-/*   Updated: 2022/01/03 03:54:16 by majjig           ###   ########.fr       */
+/*   Updated: 2022/01/03 04:05:59 by majjig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ int	main(int ac, char **av)
 	ft_assign(ac, a, av);
 	ft_handler(all, a, b, ac);
 	if (is_sorted(a, ac))
-		write(1, "OK\n", 3);
+		write(1, "\x1B[32mOK\n", 7);
 	else
-		write(1, "KO\n", 3);
+		write(1, "\x1B[31mKO\n", 7);
 	ft_free_calc_exit(a, b, all);
 }
