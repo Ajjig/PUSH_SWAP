@@ -6,7 +6,7 @@
 /*   By: majjig <majjig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:09:35 by majjig            #+#    #+#             */
-/*   Updated: 2022/01/03 03:10:48 by majjig           ###   ########.fr       */
+/*   Updated: 2022/01/03 03:29:11 by majjig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,15 @@ char	*next_inst(char *all)
 
 void	is_valid(char *instraction)
 {
-	int		i;
-	char	*all[] = {"sa\n", "ra\n", "rra\n", "pa\n", "sb\n", "rb\n", "rrb\n", "pb\n", "rrr\n", "ss\n", "rr\n"};
+	int			i;
+	static char	*all[11] = {"sa\n", "ra\n", "rra\n", "pa\n", "sb\n",
+		"rb\n", "rrb\n", "pb\n", "rrr\n", "ss\n", "rr\n"};
 
 	i = 0;
-	while (i < 11 && (ft_strlen(instraction) == 3 || ft_strlen(instraction) == 4))
-		if (ft_strcmp(instraction, all[i++]))
-			return ;
+	if ((ft_strlen(instraction) == 3 || ft_strlen(instraction) == 4))
+		while (i < 11)
+			if (ft_strcmp(instraction, all[i++]))
+				return ;
 	write(2, "ERROR\n", 6);
 	exit(1);
 }
@@ -54,13 +56,14 @@ void	rev_rotate(int *arr, int ac)
 	arr[i] = tmp;
 }
 
-void	ft_handler(char *all, int *a, int *b, int ac, int bc)
+void	ft_handler(char *all, int *a, int *b, int ac)
 {
-	int		i;
-	char	*inst;
+	static int	i = 0;
+	char		*inst;
+	int			bc;
 
-	i = 0;
-	while(*all)
+	bc = ac;
+	while (*all)
 	{
 		inst = next_inst(all);
 		if ((ft_strcmp(inst, "ra") || ft_strcmp(inst, "rr")) && i < ac - 1)
@@ -90,13 +93,13 @@ int	main(int ac, char **av)
 	int		*a;
 	int		*b;
 
-	all = malloc(1);
+	all = (char *) malloc(1);
 	*all = 0;
 	ac = ft_count_nums(ac, av);
 	a = (int *) malloc((ac) * sizeof(int));
 	b = (int *) malloc((ac) * sizeof(int));
 	ft_assign(ac, a, av);
-	while(1)
+	while (1)
 	{
 		instraction = get_next_line(0);
 		if (instraction == NULL)
@@ -104,7 +107,7 @@ int	main(int ac, char **av)
 		is_valid(instraction);
 		all = ft_strjoin(all, instraction);
 	}
-	ft_handler(all, a, b, ac, ac);
+	ft_handler(all, a, b, ac);
 	if (is_sorted(a, ac))
 		write(1, "OK\n", 3);
 	else
