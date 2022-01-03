@@ -6,7 +6,7 @@
 /*   By: majjig <majjig@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:09:35 by majjig            #+#    #+#             */
-/*   Updated: 2022/01/03 03:09:36 by majjig           ###   ########.fr       */
+/*   Updated: 2022/01/03 03:10:48 by majjig           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,11 @@ void	ft_handler(char *all, int *a, int *b, int ac, int bc)
 
 int	main(int ac, char **av)
 {
-	int		i;
 	char	*all;
 	char	*instraction;
 	int		*a;
 	int		*b;
 
-	i = 0;
 	all = malloc(1);
 	*all = 0;
 	ac = ft_count_nums(ac, av);
@@ -111,4 +109,7 @@ int	main(int ac, char **av)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
+	free(all);
+	free(a);
+	free(b);
 }
