@@ -29,11 +29,15 @@ SRC_O = ${SRC:.c=.o}
 
 CHKR_O = ${CHKR:.c=.o}
 
-all : $(NAME) $(CNAME)
+all : $(NAME)
+
+bonus: $(CNAME)
 
 $(NAME): $(SRC_O) $(INC)
+	$(CC) $(SRC_O) -o $(NAME)
 
 $(CNAME): $(CHKR_O) $(INC)
+	$(CC) $(CHKR_O) -o $(CNAME)
 
 clean:
 	-@rm -rf $(CHKR_O) $(SRC_O)
