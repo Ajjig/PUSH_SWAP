@@ -1,7 +1,7 @@
 # PUSH_SWAP
 
 Algorithm project : We have at our disposal a set of int values, 2 stacks and a set of instructions to manipulate.
-ans we have to print in STDOUT the minimum possible instractions to sort stack A (from args)
+and we have to print in STDOUT the minimum possible instructions to sort stack A (from args)
 
 set of instructions :
 ```Any
