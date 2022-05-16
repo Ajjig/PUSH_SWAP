@@ -1,6 +1,6 @@
 # PUSH_SWAP
 
-Algorithm project : We have at our disposal a set of int values, 2 stacks and a set of instructions to manipulate.
+We have at our disposal a set of int values, 2 stacks and a set of instructions to manipulate.
 and we have to print in STDOUT the minimum possible instructions to sort stack A (from args)
 
 set of instructions :
