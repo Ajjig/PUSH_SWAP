@@ -22,5 +22,5 @@ rrr : rra and rrb at the same time
 This python script was created by @o-reo to visualize work with the PUSH_SWAP 42 Project.
 you can use it with this command
 ```Bash
-make && python3 pyviz.py `ruby -e "puts (1..100).to_a.shuffle.join(' ')"`
+make && python3 pyviz.py `ruby -e "puts (0..99).to_a.shuffle.join(' ')"`
 ```
